@@ -192,10 +192,13 @@ function! startify#session_load(...) abort
 
   if filereadable(spath)
     if get(g:, 'startify_session_persistence') && filewritable(v:this_session)
+      "Note my function
+      call WinManageClosePlugins()
       call startify#session_write(fnameescape(v:this_session))
     endif
     call startify#session_delete_buffers()
     execute 'source '. fnameescape(spath)
+    call WinManageOpenPlugins()
     call s:create_last_session_link(spath)
   else
     echo 'No such file: '. spath
@@ -237,13 +240,16 @@ function! startify#session_save(...) abort
 
   let spath = s:session_dir . s:sep . sname
   if !filereadable(spath)
+    call WinManageClosePlugins()
     call startify#session_write(fnameescape(spath))
     echo 'Session saved under: '. spath
+    call WinManageOpenPlugins()
     return
   endif
 
   echo 'Session already exists. Overwrite?  [y/n]' | redraw
   if nr2char(getchar()) == 'y'
+    call WinManageClosePlugins()
     call startify#session_write(fnameescape(spath))
     echo 'Session saved under: '. spath
   else
@@ -254,6 +260,7 @@ endfunction
 " Function: #session_close {{{1
 function! startify#session_close() abort
   if exists('v:this_session') && filewritable(v:this_session)
+    call WinManageClosePlugins()
     call startify#session_write(fnameescape(v:this_session))
     let v:this_session = ''
   endif
@@ -295,6 +302,7 @@ function! startify#session_write(spath)
   finally
     let &sessionoptions = ssop
   endtry
+  call WinManageOpenPlugins()
 
   if exists('g:startify_session_remove_lines')
         \ || exists('g:startify_session_savevars')

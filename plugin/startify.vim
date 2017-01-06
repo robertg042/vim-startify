@@ -50,6 +50,8 @@ endfunction
 
 function! s:extinction()
   if exists('v:this_session') && filewritable(v:this_session)
+    "my funtion:
+    call WinManageClosePlugins()
     call startify#session_write(fnameescape(v:this_session))
   endif
 endfunction
