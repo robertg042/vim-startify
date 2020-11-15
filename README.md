@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/mhinz/vim-startify.svg?branch=master)](https://travis-ci.org/mhinz/vim-startify)
 
-![vim-startify](https://raw.githubusercontent.com/mhinz/vim-startify/master/pictures/startify-logo.png)
+![vim-startify](https://raw.githubusercontent.com/mhinz/vim-startify/master/images/startify-logo.png)
 
 ---
 
@@ -37,16 +37,19 @@ documentation for further customization:
     :h startify
     :h startify-faq
 
+If you want to share anything with your fellow plugin users, make sure to visit
+the [wiki](https://github.com/mhinz/vim-startify/wiki).
+
 ## Screenshot
 
-![Startify in action!](https://github.com/mhinz/vim-startify/blob/master/pictures/startify-menu.png)
-That's it. A fancy start screen for Vim.  _(almost all visible features enabled - freely customizable)_
+![Startify in action!](https://github.com/mhinz/vim-startify/blob/master/images/startify-menu.png)
+
+That's it. A fancy start screen for Vim.
+
+_(Almost all visible features enabled. Colorscheme:
+[vim-janah](https://github.com/mhinz/vim-janah).)_
 
 ## Author and Feedback
 
 If you like my plugins, please star them on Github. It's a great way of getting
 feedback. Same goes for issues reports or feature requests.
-
-Contact: [Twitter](https://twitter.com/_mhinz_)
-
-_Get your Vim on!_
