@@ -201,10 +201,14 @@ function! startify#session_load(source_last_session, ...) abort
 
   if filereadable(session_path)
     if get(g:, 'startify_session_persistence') && filewritable(v:this_session)
+      "RG: my function defined in .vimrc
+      call WinManageClosePlugins()
       call startify#session_write(fnameescape(v:this_session))
     endif
     call startify#session_delete_buffers()
     execute 'source '. fnameescape(session_path)
+    "RG: my function defined in .vimrc
+    call WinManageOpenPlugins()
     call s:create_last_session_link(session_path)
   else
     echo 'No such file: '. session_path
@@ -245,13 +249,16 @@ function! startify#session_save(bang, ...) abort
 
   let session_path = s:session_dir . s:sep . session_name
   if !filereadable(session_path)
+    call WinManageClosePlugins()
     call startify#session_write(fnameescape(session_path))
     echo 'Session saved under: '. session_path
+    call WinManageOpenPlugins()
     return
   endif
 
   echo 'Session already exists. Overwrite?  [y/n]' | redraw
   if a:bang || nr2char(getchar()) == 'y'
+    call WinManageClosePlugins()
     call startify#session_write(fnameescape(session_path))
     echo 'Session saved under: '. session_path
   else
@@ -262,6 +269,7 @@ endfunction
 " Function: #session_close {{{1
 function! startify#session_close() abort
   if exists('v:this_session') && filewritable(v:this_session)
+    call WinManageClosePlugins()
     call startify#session_write(fnameescape(v:this_session))
     let v:this_session = ''
   endif
@@ -308,6 +316,7 @@ function! startify#session_write(session_path)
   finally
     let &sessionoptions = ssop
   endtry
+  call WinManageOpenPlugins()
 
   if exists('g:startify_session_remove_lines')
         \ || exists('g:startify_session_savevars')
